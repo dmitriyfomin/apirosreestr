@@ -7,7 +7,7 @@
 */
 
 # Уникальный токен
-const TOKEN = "YZ5R-1GRZ-AXBE-BODX";
+const TOKEN = "";
 
 # Установка автоподключения классов
 spl_autoload_register(function ($class) {
