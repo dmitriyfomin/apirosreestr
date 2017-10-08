@@ -15,8 +15,10 @@ class Cadaster implements IOrder
     }
     
     /**
-    * public resource download(int $doc_id, string $ext): void
+    * public resource download(int $doc_id, string $ext)
+    * 
     * Метод загрузки документа
+    * 
     * @param int $doc_id - идентификатор документа
     * @param string $ext - расширение файла
     * @return resource
@@ -28,7 +30,9 @@ class Cadaster implements IOrder
     
     /**
     * public void get_info_by_search(string $addr, int $is_grouped)
+    * 
     * Метод обрабатывает полученный json-объект и выводит информацию поиска по адресу или кадастровому номеру
+    * 
     * @param string $data - адрес, либо кадастровый номер из формы
     * @param int $is_grouped - группировать элементы. По умолч. 0
     * @return void - вывод информации
@@ -57,7 +61,9 @@ class Cadaster implements IOrder
     
     /**
     * public string get_encoded_object(string $cadnomer)
+    * 
     * Метод получения уникального идентификатора объекта
+    * 
     * @params string $cadnomer - кадастровый номер
     * @return string - Уникальный код для оформления заказа
     */
@@ -68,7 +74,9 @@ class Cadaster implements IOrder
     
     /**
     * public array get_full_object_info(string $cadnomer)
+    * 
     * Метод возвращает в виде массива полную информацию об объекте 
+    * 
     * @param string $cadnomer - кадастровый номер из формы
     * @return array - Полная информация об объекте
     */
@@ -78,25 +86,29 @@ class Cadaster implements IOrder
     }
     
     /**
-    * public array get_reestr(string $cadnomer)
-    * Метод вывода реестра объектов невижимости, относящейся к дому по кадастровому номеру этого дома
+    * public object get_reestr(string $cadnomer)
+    * 
+    * Метод вывода реестра объектов недвижимости, относящейся к дому по кадастровому номеру этого дома
+    * 
     * @param string $cadnomer - кадастровый номер
-    * @return array - Возвращает реестр объектов недвижимости, относящейся к дому по кадастровому номеру этого дома 
+    * @return object - Возвращает реестр объектов недвижимости, относящейся к дому по кадастровому номеру этого дома 
     */
-    public function get_reestr(string $cadnomer): array
+    public function get_reestr(string $cadnomer)
     {
-        return json_decode($this->query->send(RequestUrl::CADASTER_REESTR_URL, ["query" => $cadnomer]), true);
+        return json_decode($this->query->send(RequestUrl::CADASTER_REESTR_URL, ["query" => $cadnomer]));
     }
     
     /**
-    * public bool is_cadnumber( void )
+    * public bool is_cadnumber(string $cadnomer)
+    * 
     * Метод валидации кадастрового номера
+    * 
     * @param string $cadnomer - кадастровый номер
     * @return bool - Проверяет соответствует ли кадастровый номер стандарту
     */
     public function is_cadnumber(string $cadnomer): bool
     {
-        if (preg_match("/(\d{2}:){2}(\d{6,}:){1}(\d{1,}){1}/", $cadnomer)) {
+        if (preg_match("/(\d{2}:){2}(\d{6,}:){1}\d/", $cadnomer)) {
             return true;
         } else {
             return false;
@@ -106,7 +118,9 @@ class Cadaster implements IOrder
     /**
     * @Override
     * public array get_all_home_owners(string $enc_object, array $docs)
+    * 
     * Метод запроса двух выписок
+    * 
     * @param string $enc_object - уникальный код объекта
     * @param string $docs - перечень заказываемых документов
     * @return array - Результат запроса
@@ -119,7 +133,9 @@ class Cadaster implements IOrder
     /**
     * @Override
     * public array get_owners(string $enc_object, array $docs)
+    * 
     * Метод запроса двух выписок
+    * 
     * @param string $enc_object - уникальный код объекта
     * @param string $docs - перечень заказываемых документов
     * @return array - Результат запроса
@@ -132,7 +148,9 @@ class Cadaster implements IOrder
     /**
     * @Override
     * public array request_two_orderings(string $enc_object, array $docs)
+    * 
     * Метод запроса двух выписок
+    * 
     * @param string $enc_object - уникальный код объекта
     * @param string $docs - перечень заказываемых документов
     * @return array - Результат запроса
