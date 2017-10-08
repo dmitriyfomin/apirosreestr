@@ -118,24 +118,120 @@ require 'incs/bootstrap.php';
         case 'reestr':
         $cadnumber = htmlspecialchars(filter_input(INPUT_POST, 'cadnumber'));
         if ((new Cadaster())->is_cadnumber($cadnumber)) {
-            print_r((new Cadaster())->get_reestr($cadnumber));
-            /*$obj = (new Cadaster())->get_reestr($cadnumber);
-            //echo 'Найдено ' . $obj['apartments_residential']['found'] . ' жилых помещений<br/><br/>';
-            foreach ($obj as $k => $val):
-            if (! empty($val['lands']['CADNOMER'])) {
-                echo 'Кадастровый номер: ' . $val['lands']['CADNOMER'] . '<br/>';
+            #print_r((new Cadaster())->get_reestr($cadnumber));
+            $obj = (new Cadaster())->get_reestr($cadnumber);
+            if (! empty($obj->reestr->apartments_residential->found)) {
+            echo 'Найдено ' . $obj->reestr->apartments_residential->found . ' жилых помещений<br/><br/>';
+            foreach ($obj->reestr->apartments_residential->objects as $val):
+            if (! empty($val->CADNOMER)) {
+                echo 'Кадастровый номер: ' . $val->CADNOMER . '<br/>';
             }
-            if (! empty($val['ADDRESS'])) {
-                echo 'Адрес: ' . $val['ADDRESS'] . '<br/>';
+            if (! empty($val->ADDRESS)) {
+                echo 'Адрес: ' . $val->ADDRESS . '<br/>';
             }
-            if (! empty($val['TYPE'])) {
-                echo 'Тип: ' . $val['TYPE'] . '<br/>';
+            if (! empty($val->TYPE)) {
+                echo 'Тип: ' . $val->TYPE . '<br/>';
             }
-             if (! empty($val['AREA'])) {
-                echo 'Площадь: ' . $val['AREA'] . '<br/>';
+             if (! empty($val->AREA)) {
+                echo 'Площадь: ' . $val->AREA . '<br/>';
             }
+            echo '<br/><br/>';
             endforeach;
-            echo '<br/><br/>';*/
+            }
+            echo '<br/><br/>';
+            if (! empty($obj->reestr->apartments_nonresidential->found)) {
+            echo 'Найдено ' . $obj->reestr->apartments_nonresidential->found . ' нежилых помещений<br/><br/>';
+            foreach ($obj->reestr->apartments_nonresidential->objects as $val):
+            if (! empty($val->CADNOMER)) {
+                echo 'Кадастровый номер: ' . $val->CADNOMER . '<br/>';
+            }
+            if (! empty($val->ADDRESS)) {
+                echo 'Адрес: ' . $val->ADDRESS . '<br/>';
+            }
+            if (! empty($val->TYPE)) {
+                echo 'Тип: ' . $val->TYPE . '<br/>';
+            }
+             if (! empty($val->AREA)) {
+                echo 'Площадь: ' . $val->AREA . '<br/>';
+            }
+            echo '<br/><br/>';
+            endforeach;
+            }
+            echo '<br/><br/>';
+            if (! empty($obj->reestr->lands->found)) {
+            echo 'Найдено земельных участков ' . $obj->reestr->lands->found . '<br/><br/>';
+            foreach ($obj->reestr->lands->objects as $val):
+            if (! empty($val->CADNOMER)) {
+                echo 'Кадастровый номер: ' . $val->CADNOMER . '<br/>';
+            }
+            if (! empty($val->ADDRESS)) {
+                echo 'Адрес: ' . $val->ADDRESS . '<br/>';
+            }
+            if (! empty($val->TYPE)) {
+                echo 'Тип: ' . $val->TYPE . '<br/>';
+            }
+             if (! empty($val->AREA)) {
+                echo 'Площадь: ' . $val->AREA . '<br/>';
+            }
+            echo '<br/><br/>';
+            endforeach;
+            }
+            echo '<br/><br/>';
+            if (! empty($obj->reestr->buildings->found)) {
+            echo 'Найдено строений ' . $obj->reestr->buildings->found . '<br/><br/>';
+            foreach ($obj->reestr->buildings->objects as $val):
+            if (! empty($val->CADNOMER)) {
+                echo 'Кадастровый номер: ' . $val->CADNOMER . '<br/>';
+            }
+            if (! empty($val->ADDRESS)) {
+                echo 'Адрес: ' . $val->ADDRESS . '<br/>';
+            }
+            if (! empty($val->TYPE)) {
+                echo 'Тип: ' . $val->TYPE . '<br/>';
+            }
+             if (! empty($val->AREA)) {
+                echo 'Площадь: ' . $val->AREA . '<br/>';
+            }
+            echo '<br/><br/>';
+            endforeach;
+            }
+            echo '<br/><br/>';
+            if (! empty($obj->reestr->constructions->found)) {
+            echo 'Найдено ' . $obj->reestr->constructions->found . ' конструкций<br/><br/>';
+            foreach ($obj->reestr->constructions->objects as $val):
+            if (! empty($val->CADNOMER)) {
+                echo 'Кадастровый номер: ' . $val->CADNOMER . '<br/>';
+            }
+            if (! empty($val->ADDRESS)) {
+                echo 'Адрес: ' . $val->ADDRESS . '<br/>';
+            }
+            if (! empty($val->TYPE)) {
+                echo 'Тип: ' . $val->TYPE . '<br/>';
+            }
+             if (! empty($val->AREA)) {
+                echo 'Площадь: ' . $val->AREA . '<br/>';
+            }
+            echo '<br/><br/>';
+            endforeach;
+            }
+            if (! empty($obj->reestr->others->found)) {
+            echo 'Найдено прочих объектов ' . $obj->reestr->others->found . '<br/><br/>';
+            foreach ($obj->reestr->constructions->objects as $val):
+            if (! empty($val->CADNOMER)) {
+                echo 'Кадастровый номер: ' . $val->CADNOMER . '<br/>';
+            }
+            if (! empty($val->ADDRESS)) {
+                echo 'Адрес: ' . $val->ADDRESS . '<br/>';
+            }
+            if (! empty($val->TYPE)) {
+                echo 'Тип: ' . $val->TYPE . '<br/>';
+            }
+             if (! empty($val->AREA)) {
+                echo 'Площадь: ' . $val->AREA . '<br/>';
+            }
+            echo '<br/><br/>';
+            endforeach;
+            }
         } else {
             echo 'Кадастровый номер введён неверно!';
         }
